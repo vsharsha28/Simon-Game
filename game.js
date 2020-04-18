@@ -7,14 +7,14 @@ var started = false;
 var level = 0;
 
 
-//Media query in Javascript (start)
-var x=window.matchMedia("(max-width: 900px)"); //This x is used in another media query function below
+
+var x=window.matchMedia("(max-width: 900px)"); 
 initiatingFunction(x);
 x.addListener(initiatingFunction);
 
 function initiatingFunction(x){
   if (x.matches) {
-    $("#level-title").text("Touch anywhere on the page excluding the color buttons!");
+    $("#level-title").text("Touch anywhere around the buttons to Start!");
 
     $(document).click(function() {
       if (!started) {
@@ -37,10 +37,9 @@ function initiatingFunction(x){
     });
   }
 }
-//media query (end)
 
 
-//function to take the color chosen by user and check if correct
+
 $(".btn").click(function() {
 
   var userChosenColour = $(this).attr("id");
@@ -54,7 +53,6 @@ $(".btn").click(function() {
 
 
 
-//function to check the answer
 function checkAnswer(currentLevel) {
 
     if (gamePattern[currentLevel] === userClickedPattern[currentLevel]) {
@@ -67,14 +65,13 @@ function checkAnswer(currentLevel) {
       playSound("wrong");
       $("body").addClass("game-over");
 
-      gameOverFunction(x);  //used media query here
+      gameOverFunction(x);
 
 
 
     }
 }
 
-//function to generate next color and add it to sequence
 function nextSequence() {
   userClickedPattern = [];
   level++;
@@ -88,7 +85,6 @@ function nextSequence() {
 }
 
 
-//function to animate button when pressed
 function animatePress(currentColor) {
   $("#" + currentColor).addClass("pressed");
   setTimeout(function () {
@@ -98,23 +94,21 @@ function animatePress(currentColor) {
 
 
 
-//function to play sound
 function playSound(name) {
-  var audio = new Audio("sounds/" + name + ".mp3");
+  var audio = new Audio(name + ".mp3");
   audio.play();
 }
 
 
 
-//same as above - media query function
 function gameOverFunction(x){
   if (x.matches) {
-    $("#level-title").text("Game Over, Touch on the page to Restart");
+    $("#level-title").text("Game Over, Touch anywhere around the buttons to Restart");
     setTimeout(function () {
       $("body").removeClass("game-over");
     }, 200);
 
-    setTimeout(startOver, 1000); //timeout is given to avoid overlapping of the click used to pick the wrong color with the click required to startover
+    setTimeout(startOver, 1000);
   }
   else{
     $("#level-title").text("Game Over, Press Any Key to Restart");
@@ -126,7 +120,6 @@ function gameOverFunction(x){
   }
 }
 
-//function to startover
 function startOver() {
   level = 0;
   gamePattern = [];
