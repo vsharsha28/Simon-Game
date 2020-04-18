@@ -116,7 +116,7 @@ function gameOverFunction(x){
       $("body").removeClass("game-over");
     }, 200);
 
-    startOver();
+    setTimeout(startOver, 1000);
   }
 }
 
