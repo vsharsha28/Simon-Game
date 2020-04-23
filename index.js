@@ -7,7 +7,7 @@ var started = false;
 var level = 0;
 
 
- $(document).click(function() {
+ $(document).on("keydown touchstart", function() {
       if (!started) {
         $("#level-title").text("Level " + level);
         setTimeout(nextSequence, 1000);
