@@ -7,16 +7,7 @@ var started = false;
 var level = 0;
 
 
-
-var x=window.matchMedia("(max-width: 900px)"); 
-initiatingFunction(x);
-x.addListener(initiatingFunction);
-
-function initiatingFunction(x){
-  if (x.matches) {
-    $("#level-title").text("Touch anywhere around the buttons to Start!");
-
-    $(document).click(function() {
+ $(document).click(function() {
       if (!started) {
         $("#level-title").text("Level " + level);
         setTimeout(nextSequence, 1000);
@@ -24,19 +15,7 @@ function initiatingFunction(x){
       }
     });
 
-  }
-  else {
-    $("#level-title").text("Press A Key to Start");
 
-    $(document).keypress(function() {
-      if (!started) {
-        $("#level-title").text("Level " + level);
-        setTimeout(nextSequence, 1000);
-        started = true;
-      }
-    });
-  }
-}
 
 
 
@@ -65,7 +44,12 @@ function checkAnswer(currentLevel) {
       playSound("wrong");
       $("body").addClass("game-over");
 
-      gameOverFunction(x);
+      $("#level-title").text("Game Over, Press Any Key to Restart");
+    setTimeout(function () {
+      $("body").removeClass("game-over");
+    }, 200);
+
+    setTimeout(startOver, 1000);
 
 
 
@@ -101,24 +85,6 @@ function playSound(name) {
 
 
 
-function gameOverFunction(x){
-  if (x.matches) {
-    $("#level-title").text("Game Over, Touch anywhere around the buttons to Restart");
-    setTimeout(function () {
-      $("body").removeClass("game-over");
-    }, 200);
-
-    setTimeout(startOver, 1000);
-  }
-  else{
-    $("#level-title").text("Game Over, Press Any Key to Restart");
-    setTimeout(function () {
-      $("body").removeClass("game-over");
-    }, 200);
-
-    setTimeout(startOver, 1000);
-  }
-}
 
 function startOver() {
   level = 0;
